@@ -29,9 +29,15 @@ init python:
     def total_income():
         return velvet.economy.total_income_per_sec(store.gs)
 
+    def act(fn, *args, **kwargs):
+        # Ejecuta una acción del motor y DESCARTA su bool de retorno.
+        # Si no se descarta, el valor no-None cierra la interacción de la screen
+        # (semántica de Function en Ren'Py) y expulsa/corrompe la navegación.
+        fn(*args, **kwargs)
+
     def do_visit(guest):
-        # Visita con cooldown real (lee el reloj al hacer clic).
-        return velvet.actions.visit(guest, time.time())
+        # Visita con cooldown real (lee el reloj al hacer clic). Sin retorno (ver act()).
+        velvet.actions.visit(guest, time.time())
 
     def package_ready():
         return (time.time() - store.last_clicker) >= velvet.config.CLICKER_COOLDOWN_SEC

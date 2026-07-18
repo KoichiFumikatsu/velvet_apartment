@@ -24,7 +24,7 @@ screen floors():
         $ rcost = velvet.hotel.repair_cost(top.index)
         if full:
             textbutton "Reparar y subir al siguiente piso (%s)" % vdisplay.cost_label(rcost):
-                action Function(velvet.hotel.unlock_next_floor, gs, top)
+                action Function(act, velvet.hotel.unlock_next_floor, gs, top)
                 sensitive gs.money >= rcost
                 text_size 30
         else:

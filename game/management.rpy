@@ -61,7 +61,7 @@ screen mgmt_rooms():
                                 text "—" size 24 xsize 440 color "#666666"
                             text vdisplay.room_income_label(rincome) size 24 xsize 150 color "#8fd18f"
                             textbutton "Mejorar (%s)" % vdisplay.cost_label(up_cost):
-                                action Function(velvet.actions.upgrade_room, gs, room)
+                                action Function(act, velvet.actions.upgrade_room, gs, room)
                                 sensitive gs.money >= up_cost
                                 text_size 22
 
@@ -74,7 +74,7 @@ screen mgmt_facade():
         text "Nivel actual: %d  (+%d%% al ingreso global)" % (gs.facade_level, int(gs.facade_level * 10)) size 28
         text "Cada nivel suma +10%% al ingreso de todas las habitaciones." size 24 color "#c9b8e0"
         textbutton "Mejorar fachada (%s)" % vdisplay.cost_label(fcost):
-            action Function(velvet.actions.upgrade_facade, gs)
+            action Function(act, velvet.actions.upgrade_facade, gs)
             sensitive gs.money >= fcost
             text_size 28
 

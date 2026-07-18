@@ -17,7 +17,11 @@ screen clicker():
             background "#4d3a2b" hover_background "#7d5a3b"
             xalign 0.5
 
+    # Cuenta regresiva de la sesión.
     timer 1.0 repeat True:
         action If(remaining > 1.5,
                   SetScreenVariable("remaining", remaining - 1),
                   [Function(finish_clicker, clicks, income), Return()])
+
+    # Tick de ingreso idle (coherente con las demás screens; no se pierde ingreso durante el clicker).
+    timer 1.0 action Function(game_tick) repeat True
