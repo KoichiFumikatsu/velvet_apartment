@@ -1,0 +1,15 @@
+# Ren'Py
+*.rpyc
+*.rpyb
+*.rpymc
+/game/saves/
+/game/cache/
+/game/bytecode.rpyb
+
+# Ren'Py builds / dists
+/*-dists/
+*.zip
+
+# OS
+Thumbs.db
+.DS_Store
