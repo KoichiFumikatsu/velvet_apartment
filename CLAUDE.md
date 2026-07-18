@@ -4,7 +4,7 @@ Juego **idle +18 (hentai) en Ren'Py**, implementado con **Claude y Codex**. El c
 
 ## Local (fumihome)
 - Ruta: `C:\Users\fumik\projects\velvet-apartment`
-- Remoto: `git@github.com:KoichiFumikatsu/velvet-apartment.git` (SSH — pendiente de crear el repo en GitHub y conectar)
+- Remoto: `git@github.com:KoichiFumikatsu/velvet_apartment.git` (SSH, conectado). Nota: el repo en GitHub es `velvet_apartment` (guion bajo); la carpeta local es `velvet-apartment` (guion).
 - Ren'Py SDK: `C:\Users\fumik\renpy-8.3.7-sdk`
 - Correr (cuando exista `game/`): `& "C:\Users\fumik\renpy-8.3.7-sdk\renpy.exe" "C:\Users\fumik\projects\velvet-apartment"`
   - Trampa conocida del launcher `renpy.exe` en fumihome: ver memoria `project_tlgames_fumihome_port.md` (cwd del launcher).
