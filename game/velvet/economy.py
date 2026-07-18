@@ -21,3 +21,27 @@ def facade_cost(level: int) -> float:
 
 def base_income(floor_index: int) -> float:
     return config.BASE_INCOME_FLOOR1 * (config.FLOOR_INCOME_MULTIPLIER ** floor_index)
+
+
+from velvet.state import GameState, Room
+
+
+def room_income(room: Room, facade_level: int, floor_index: int) -> float:
+    if not room.occupied:
+        return 0.0
+    return (
+        base_income(floor_index)
+        * room.upgrade_level
+        * affection_multiplier(room.guest.affection)
+        * facade_multiplier(facade_level)
+    )
+
+
+def total_income_per_sec(gs: GameState) -> float:
+    total = 0.0
+    for floor in gs.floors:
+        if not floor.unlocked:
+            continue
+        for room in floor.rooms:
+            total += room_income(room, gs.facade_level, floor.index)
+    return total
