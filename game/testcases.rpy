@@ -34,5 +34,9 @@ testcase flow:
     $ assert renpy.get_screen("room") is not None, "FIX C1: Visitar cerró la habitación"
     "Volver"
     pause 1.5
-    $ assert renpy.get_screen("hallway") is not None, "Volver no regresó al pasillo"
+    $ assert renpy.get_screen("hallway") is not None, "Volver (habitación) no regresó al pasillo"
+    # Fix del bug Return(None)->True: el Volver del pasillo debe ir a RECEPCIÓN, no rebotar a una habitación.
+    "Volver"
+    pause 1.5
+    $ assert renpy.get_screen("reception") is not None, "BUG: Volver del pasillo no regresó a recepción (room=%r)" % (renpy.get_screen("room") is not None,)
     run Quit(confirm=False)

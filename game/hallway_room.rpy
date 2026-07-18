@@ -1,9 +1,11 @@
 # hallway_room.rpy — pasillo (3 puertas del piso actual) y escena de habitación.
 
+# OJO Ren'Py: Return(None) NO devuelve None fuera del menú — devuelve True.
+# Por eso los "Volver" usan el centinela "back"; los índices de puerta son int.
 label hallway_flow:
     while True:
         $ sel = renpy.call_screen("hallway")
-        if sel is None:
+        if not isinstance(sel, int) or isinstance(sel, bool):
             return
         $ res = renpy.call_screen("room", room=gs.floors[current_floor].rooms[sel])
         if res == "clicker":
@@ -30,7 +32,7 @@ screen hallway():
                     xsize 340 ysize 520 text_xalign 0.5 text_yalign 0.5 text_size 26
                     background "#242430" hover_background "#3a3a4a"
 
-    textbutton "Volver" action Return(None) xpos 60 ypos 940 text_size 30
+    textbutton "Volver" action Return("back") xpos 60 ypos 940 text_size 30
     use topbar
     timer 1.0 action Function(game_tick, _update_screens=False) repeat True
 
@@ -43,7 +45,7 @@ screen room(room):
         vbox:
             align (0.5, 0.5) spacing 24
             text "Habitación vacía." size 40 color "#c9b8e0"
-            textbutton "Volver" action Return(None) text_size 30 xalign 0.5
+            textbutton "Volver" action Return("back") text_size 30 xalign 0.5
     else:
         $ guest = room.guest
         $ scost = velvet.actions.service_cost(guest.services_bought)
@@ -76,7 +78,7 @@ screen room(room):
                 text_size 30
             textbutton "Recibir paquete (clicker)" action Return("clicker") sensitive package_ready() text_size 30
             null height 20
-            textbutton "Volver" action Return(None) text_size 30
+            textbutton "Volver" action Return("back") text_size 30
 
     use topbar
     timer 1.0 action Function(game_tick, _update_screens=False) repeat True
