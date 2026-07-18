@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from velvet import affection, config
-from velvet.state import GameState, Guest
+from velvet import affection, config, economy
+from velvet.state import GameState, Guest, Room
 
 
 def visit(guest: Guest, now: float) -> bool:
@@ -23,4 +23,22 @@ def buy_service(gs: GameState, guest: Guest) -> bool:
     gs.money -= cost
     affection.add_affection(guest, config.SERVICE_GAIN)
     guest.services_bought += 1
+    return True
+
+
+def upgrade_room(gs: GameState, room: Room) -> bool:
+    cost = economy.room_upgrade_cost(room.upgrade_level)
+    if gs.money < cost:
+        return False
+    gs.money -= cost
+    room.upgrade_level += 1
+    return True
+
+
+def upgrade_facade(gs: GameState) -> bool:
+    cost = economy.facade_cost(gs.facade_level)
+    if gs.money < cost:
+        return False
+    gs.money -= cost
+    gs.facade_level += 1
     return True
