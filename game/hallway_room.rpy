@@ -56,7 +56,7 @@ screen room(room):
             vbox:
                 align (0.5, 0.5) spacing 16
                 text guest.name size 44 color "#ffd479" xalign 0.5
-                text "[ arte de la huésped ]" size 24 color "#7a6a8a" xalign 0.5
+                text "( arte de la huésped )" size 24 color "#7a6a8a" xalign 0.5
 
         # Panel de interacción.
         vbox:
