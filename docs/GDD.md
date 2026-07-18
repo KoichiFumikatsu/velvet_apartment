@@ -1,35 +1,7 @@
-# Velvet Apartment — Game Design Document (borrador)
+# Velvet Apartment — GDD
 
-> Estado: **desde cero**. Todo lo de abajo está **por definir** en brainstorming. No implementar en Ren'Py hasta cerrar al menos el Concepto y el Núcleo idle.
+El diseño completo y aprobado vive en el spec fechado:
 
-## 1. Concepto
-- Pitch (1 frase): _por definir_
-- Fantasía central: _por definir_
-- Referencias / tono: _por definir_
+- [docs/superpowers/specs/2026-07-17-velvet-apartment-design.md](superpowers/specs/2026-07-17-velvet-apartment-design.md)
 
-## 2. Núcleo idle (lo más importante)
-- Recurso que se acumula pasivamente: _por definir_
-- Qué acelera la acumulación (upgrades, personajes, habitaciones): _por definir_
-- Ciclo de interacción activa (clicks, decisiones): _por definir_
-- Prestigio / reinicio con bono: _por definir_
-
-## 3. Ambientación
-- El "apartamento": estructura, habitaciones, progresión espacial: _por definir_
-
-## 4. Personajes
-- Elenco, roles, cómo se desbloquean: _por definir_
-
-## 5. Contenido adulto (+18)
-- Tipo de escenas, cómo se desbloquean, límites de alcance: _por definir_
-
-## 6. Progresión y economía
-- Monedas, curvas de coste, gates de contenido: _por definir_
-
-## 7. Arte y assets
-- Estilo, fuente de assets (propio, generado con IA Gen, encargado): _por definir_
-
-## 8. Alcance MVP
-- Qué entra en la primera versión jugable mínima: _por definir_
-
-## 9. Monetización (si aplica)
-- Modelo: _por definir_
+Resumen: juego **idle +18 en Ren'Py**. Administras un hotel misterioso; habitaciones ocupadas generan **dinero pasivo** (idle/offline), lo gastas en upgrades/fachada/expansión; **visitas** a las huéspedes suben su **afecto**, que multiplica su ingreso y desbloquea 4 tiers de contenido (SFW → Suggestive → NSFW → NSFW Nocturno). Progresión vertical por pisos (3 habitaciones + ascensor). Arte con IA Gen propio. Elenco "inspirado en" legalmente distinto.
