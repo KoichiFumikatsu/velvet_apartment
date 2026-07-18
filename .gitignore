@@ -22,3 +22,11 @@ __pycache__/
 
 # SDD scratch (briefs, reports, review packages, ledger)
 .superpowers/
+
+# Ren'Py runtime artifacts
+log.txt
+errors.txt
+traceback.txt
+game/saves/
+game/cache/
+*.rpyc
