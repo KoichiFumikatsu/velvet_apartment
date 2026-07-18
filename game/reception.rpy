@@ -15,18 +15,16 @@ label hub:
     jump hub
 
 
-# Barra superior reutilizable: dinero + ingreso/s.
+# Barra superior reutilizable: dinero + ingreso/s (DynamicDisplayable = live sin restart).
 screen topbar():
-    $ money_str = vdisplay.format_money(gs.money)
-    $ income_str = vdisplay.room_income_label(total_income())
     frame:
         xfill True ypos 0
         background Solid("#00000099")
         padding (30, 14)
         hbox:
             spacing 40
-            text money_str size 44 color "#ffd479"
-            text income_str size 30 color "#c9b8e0" yalign 1.0
+            add DynamicDisplayable(_money_disp)
+            add DynamicDisplayable(_income_disp) yalign 1.0
 
 
 screen reception():
@@ -55,7 +53,7 @@ screen reception():
         background "#2b2b2b" hover_background "#4a4a4a"
 
     use topbar
-    timer 1.0 action Function(game_tick) repeat True
+    timer 1.0 action Function(game_tick, _update_screens=False) repeat True
 
 
 # Panel genérico "en construcción" (tablón/inventario/tabs stub).
@@ -69,4 +67,4 @@ screen construccion(titulo="En construcción"):
             text "En construcción — llega en un próximo incremento." size 28 color "#c9b8e0" xalign 0.5
             textbutton "Volver" action Return() xalign 0.5 text_size 30
     use topbar
-    timer 1.0 action Function(game_tick) repeat True
+    timer 1.0 action Function(game_tick, _update_screens=False) repeat True

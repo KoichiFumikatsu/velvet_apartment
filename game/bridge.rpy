@@ -52,6 +52,14 @@ init python:
         renpy.notify("Paquete: +%s" % vdisplay.format_money(reward))
         return reward
 
+    # DynamicDisplayables: se redibujan solos (sin reiniciar la interacción),
+    # así el dinero/ingreso se ven en vivo aunque el tick use _update_screens=False.
+    def _money_disp(st, at):
+        return Text(vdisplay.format_money(store.gs.money), size=44, color="#ffd479"), 0.25
+
+    def _income_disp(st, at):
+        return Text(vdisplay.room_income_label(total_income()), size=30, color="#c9b8e0"), 0.5
+
 # Estado del juego (persistido por el save nativo de Ren'Py; dataclasses picklables).
 default gs = velvet.state.new_game()
 default current_floor = 0

@@ -1,5 +1,13 @@
 # Testcase automatizado del flujo del shell (solo modo desarrollo).
 # Correr: renpy.exe "<proyecto>" test flow
+#
+# NOTA: valida boot + render de las 4 pantallas + navegación + el fix C1
+# (que "Visitar" no cierra la habitación). La navegación de retorno de 2+
+# niveles seguidos NO se automatiza aquí: el harness de test resuelve el
+# clic por coordenada aleatoria reusando la posición previa del mouse, y en
+# transiciones multi-screen puede caer en una coordenada stale. El botón
+# "Volver" está bien renderizado y focusable (verificado), así que para un
+# humano funciona; la navegación profunda se valida jugando.
 
 testcase flow:
     "Start"
@@ -22,10 +30,9 @@ testcase flow:
     $ assert renpy.get_screen("room") is not None, "la puerta no abrió la habitación"
     "Visitar"
     pause 1.5
-    # FIX C1 (lo crítico): tras "Visitar" la habitación SIGUE abierta (no la cerró el retorno bool).
+    # FIX C1 (lo crítico): tras "Visitar" la habitación SIGUE abierta.
     $ assert renpy.get_screen("room") is not None, "FIX C1: Visitar cerró la habitación"
-    # Un nivel de retorno: habitación -> pasillo.
     "Volver"
-    pause 2.0
+    pause 1.5
     $ assert renpy.get_screen("hallway") is not None, "Volver no regresó al pasillo"
     run Quit(confirm=False)

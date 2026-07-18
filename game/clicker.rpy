@@ -24,4 +24,4 @@ screen clicker():
                   [Function(finish_clicker, clicks, income), Return()])
 
     # Tick de ingreso idle (coherente con las demás screens; no se pierde ingreso durante el clicker).
-    timer 1.0 action Function(game_tick) repeat True
+    timer 1.0 action Function(game_tick, _update_screens=False) repeat True

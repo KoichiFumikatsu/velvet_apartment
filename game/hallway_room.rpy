@@ -32,7 +32,7 @@ screen hallway():
 
     textbutton "Volver" action Return(None) xpos 60 ypos 940 text_size 30
     use topbar
-    timer 1.0 action Function(game_tick) repeat True
+    timer 1.0 action Function(game_tick, _update_screens=False) repeat True
 
 
 screen room(room):
@@ -79,4 +79,4 @@ screen room(room):
             textbutton "Volver" action Return(None) text_size 30
 
     use topbar
-    timer 1.0 action Function(game_tick) repeat True
+    timer 1.0 action Function(game_tick, _update_screens=False) repeat True
