@@ -35,7 +35,7 @@
 
 Run:
 ```bash
-cd /c/Users/fumik/projects/velvet-apartment
+cd /c/Users/fumik/projects/velvet_apartment
 py -3.12 -m venv .venv
 ./.venv/Scripts/python -m pip install -q pytest
 ```

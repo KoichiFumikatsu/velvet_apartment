@@ -3,10 +3,10 @@
 Juego **idle +18 (hentai) en Ren'Py**, implementado con **Claude y Codex**. El contexto del proyecto (qué es, stack, convenciones) vive en [AGENTS.md](AGENTS.md) — **leerlo primero**; es la fuente de verdad portable. El diseño se cierra en [docs/GDD.md](docs/GDD.md) antes de implementar.
 
 ## Local (fumihome)
-- Ruta: `C:\Users\fumik\projects\velvet-apartment`
-- Remoto: `git@github.com:KoichiFumikatsu/velvet_apartment.git` (SSH, conectado). Nota: el repo en GitHub es `velvet_apartment` (guion bajo); la carpeta local es `velvet-apartment` (guion).
+- Ruta: `C:\Users\fumik\projects\velvet_apartment`
+- Remoto: `git@github.com:KoichiFumikatsu/velvet_apartment.git` (SSH, conectado). Carpeta local y repo coinciden en nombre (`velvet_apartment`, guion bajo).
 - Ren'Py SDK: `C:\Users\fumik\renpy-8.3.7-sdk`
-- Correr (cuando exista `game/`): `& "C:\Users\fumik\renpy-8.3.7-sdk\renpy.exe" "C:\Users\fumik\projects\velvet-apartment"`
+- Correr (cuando exista `game/`): `& "C:\Users\fumik\renpy-8.3.7-sdk\renpy.exe" "C:\Users\fumik\projects\velvet_apartment"`
   - Trampa conocida del launcher `renpy.exe` en fumihome: ver memoria `project_tlgames_fumihome_port.md` (cwd del launcher).
 
 ## Persistencia de memoria (dual)
