@@ -1,19 +1,15 @@
 from __future__ import annotations
 
+from velvet import config
 from velvet.state import Floor, GameState, Guest, Room
-
-CONDITION_BASE = 10.0
-CONDITION_FLOOR_MULT = 5.0
-REPAIR_BASE = 500.0
-REPAIR_FLOOR_MULT = 4.0
 
 
 def condition_cost(floor_index: int) -> float:
-    return CONDITION_BASE * (CONDITION_FLOOR_MULT ** floor_index)
+    return config.CONDITION_BASE * (config.CONDITION_FLOOR_MULT ** floor_index)
 
 
 def repair_cost(floor_index: int) -> float:
-    return REPAIR_BASE * (REPAIR_FLOOR_MULT ** floor_index)
+    return config.REPAIR_BASE * (config.REPAIR_FLOOR_MULT ** floor_index)
 
 
 def condition_room(gs: GameState, floor: Floor, room: Room, guest: Guest) -> bool:
@@ -30,6 +26,8 @@ def floor_full(floor: Floor) -> bool:
 
 
 def unlock_next_floor(gs: GameState, floor: Floor) -> bool:
+    if floor.repaired:
+        return False
     if not floor_full(floor):
         return False
     cost = repair_cost(floor.index)

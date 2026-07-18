@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from velvet import config
+from velvet.state import GameState, Room
 
 
 def affection_multiplier(affection: float) -> float:
@@ -21,9 +22,6 @@ def facade_cost(level: int) -> float:
 
 def base_income(floor_index: int) -> float:
     return config.BASE_INCOME_FLOOR1 * (config.FLOOR_INCOME_MULTIPLIER ** floor_index)
-
-
-from velvet.state import GameState, Room
 
 
 def room_income(room: Room, facade_level: int, floor_index: int) -> float:

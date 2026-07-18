@@ -1,5 +1,5 @@
 import pytest
-from velvet import session, state
+from velvet import config, economy, session, state
 
 
 def _occupied_game():
@@ -29,3 +29,15 @@ def test_catch_up_credits_offline():
     assert credited == pytest.approx(100.0)
     assert gs.money == pytest.approx(100.0)
     assert gs.last_seen == 1100.0
+
+
+def test_catch_up_caps_at_offline_limit():
+    gs = _occupied_game()
+    gs.last_seen = 1000.0
+    elapsed = config.OFFLINE_CAP_SEC + 3600.0  # 1h beyond the 8h cap
+    now = gs.last_seen + elapsed
+    income_per_sec = economy.total_income_per_sec(gs)
+    credited = session.catch_up(gs, now=now)
+    assert credited == pytest.approx(income_per_sec * config.OFFLINE_CAP_SEC)
+    assert gs.money == pytest.approx(income_per_sec * config.OFFLINE_CAP_SEC)
+    assert gs.last_seen == now

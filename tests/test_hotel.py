@@ -40,3 +40,20 @@ def test_unlock_denied_when_not_full():
     gs = state.new_game()
     gs.money = 10_000.0
     assert hotel.unlock_next_floor(gs, gs.floors[0]) is False
+
+
+def test_cost_scaling_per_floor():
+    assert hotel.condition_cost(1) == pytest.approx(50.0)  # 10 * 5^1
+    assert hotel.repair_cost(1) == pytest.approx(2000.0)  # 500 * 4^1
+
+
+def test_unlock_next_floor_is_idempotent():
+    gs = state.new_game()
+    floor = gs.floors[0]
+    for room in floor.rooms:
+        room.guest = state.Guest(name="G")
+    gs.money = 1000.0  # enough for two repairs at floor 0 (500 each)
+    assert hotel.unlock_next_floor(gs, floor) is True
+    assert hotel.unlock_next_floor(gs, floor) is False
+    assert len(gs.floors) == 2
+    assert gs.money == pytest.approx(500.0)

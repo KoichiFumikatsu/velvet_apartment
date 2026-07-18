@@ -25,6 +25,14 @@ TIER_THRESHOLDS = {"SFW": 0.0, "SUGGESTIVE": 25.0, "NSFW": 60.0, "NSFW_NOCTURNO"
 # Clicker
 CLICKER_INCOME_PER_CLICK = 0.5         # seconds-of-income per click
 CLICKER_CAP_SEC = 300.0                # reward capped at 5 min of income
+CLICKER_SESSION_SEC = 15.0             # spec §4: clicker session duration
+CLICKER_COOLDOWN_SEC = 600.0           # spec §4: 10-minute cooldown between sessions
 
 # Offline
 OFFLINE_CAP_SEC = 8 * 3600.0           # 8 hours
+
+# Hotel
+CONDITION_BASE = 10.0
+CONDITION_FLOOR_MULT = 5.0
+REPAIR_BASE = 500.0
+REPAIR_FLOOR_MULT = 4.0
