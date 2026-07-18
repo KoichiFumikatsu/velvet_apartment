@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 # Economy
+STARTING_MONEY = 50.0                  # capital inicial: alcanza para acondicionar las 3 habitaciones del piso 1
 ROOM_UPGRADE_BASE = 10.0
 ROOM_UPGRADE_GROWTH = 1.15
 FACADE_BASE = 100.0

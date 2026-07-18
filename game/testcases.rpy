@@ -14,9 +14,10 @@ testcase flow:
     pause 1.5
     "Despiertas"
     pause 1.5
-    $ gs.money = 1000000.0
-    $ gs.floors[0].rooms[0].guest = velvet.state.Guest(name="TestGuest")
     $ assert renpy.get_screen("reception") is not None, "no llegó a recepción"
+    # Unblock del soft-lock de arranque: la partida nueva trae capital inicial.
+    $ assert gs.money == velvet.config.STARTING_MONEY, "sin capital inicial (soft-lock de arranque)"
+    $ gs.floors[0].rooms[0].guest = velvet.state.Guest(name="TestGuest")
     "MONITOR"
     pause 1.5
     $ assert renpy.get_screen("management") is not None, "MONITOR no abrió gestión"
