@@ -27,6 +27,15 @@ Prefijo de estilo a anteponer a cada prompt:
 figuras, sin texto ni carteles legibles, sin marcas de agua, sin elementos de UI.
 Iluminación y perspectiva **consistentes** entre pantallas (mismo hotel, misma noche).
 
+## Versión IA Gen (biblioteca)
+
+Los mismos assets están cargados como **apartado `velvet - *`** en la biblioteca de IA Gen
+(`iagen-online/app/library.json`, lista `prompts`), en **tags danbooru** (con guión bajo,
+`no_humans, scenery`, sin `1girl`), cada uno **bajo el límite de 75 tokens** (el motor
+antepone ~+23 de header de calidad). Esos prompts son la fuente para generar en IA Gen; los
+prompts en lenguaje natural de abajo son la descripción/ancla de estilo. `library.json` es
+runtime por instancia (gitignored) — si el dashboard vivo corre en otra máquina, sincronizar.
+
 ## Assets — set núcleo
 
 Todos 1920×1080 salvo que se indique. La columna "reemplaza" es el `Solid` placeholder
