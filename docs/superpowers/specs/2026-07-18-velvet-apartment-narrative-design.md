@@ -66,8 +66,8 @@ líneas ominosas jugadas en clave cómica); su dosificación por piso es backlog
   para no romper saves/tests previos.
 - **Pasos** (predicates leen campos ya expuestos por `gs`, sin acoplamiento inverso
   motor→UI):
-  1. "Abrí el **Pasillo** y visitá a Amber." → afecto de Amber > baseline (capturado
-     al iniciar el tutorial, o simplemente `afecto > 0`).
+  1. "Abrí el **Pasillo** y visitá a Amber." → afecto de Amber `> 0` (se siembra en
+     0 al arrancar, así que la 1ª visita lo dispara; sin baseline que rastrear).
   2. "Con lo que genera, **mejorá** su habitación." → nivel de la habitación 1 > 1.
   3. "Listo. El hotel gana solo; seguí visitándola para subir su afecto." → cierra
      (`tutorial_done`).
