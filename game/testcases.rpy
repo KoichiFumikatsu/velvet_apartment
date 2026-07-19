@@ -1,43 +1,46 @@
 # Testcase automatizado del flujo del shell (solo modo desarrollo).
 # Correr: renpy.exe "<proyecto>" test flow
 #
-# NOTA: valida boot + render de las 4 pantallas + navegación + el fix C1
-# (que "Visitar" no cierra la habitación). La navegación de retorno de 2+
-# niveles seguidos NO se automatiza aquí: el harness de test resuelve el
-# clic por coordenada aleatoria reusando la posición previa del mouse, y en
-# transiciones multi-screen puede caer en una coordenada stale. El botón
-# "Volver" está bien renderizado y focusable (verificado), así que para un
-# humano funciona; la navegación profunda se valida jugando.
+# Valida: boot -> intro VN completa (cada say renderiza sin crash de
+# interpolación) -> recepción -> Amber sembrada + tutorial activo -> navegación
+# monitor/pasillo/habitación -> visita REAL (say por tier de Amber, valida
+# interpolación [line]) -> tutorial avanza -> navegación de retorno (fix
+# Return(None)->True: el Volver del pasillo va a recepción, no rebota).
 
 testcase flow:
     "Start"
-    pause 1.5
-    "Despiertas"
-    pause 1.5
-    $ assert renpy.get_screen("reception") is not None, "no llegó a recepción"
-    # Unblock del soft-lock de arranque: la partida nueva trae capital inicial.
-    $ assert gs.money == velvet.config.STARTING_MONEY, "sin capital inicial (soft-lock de arranque)"
-    $ gs.floors[0].rooms[0].guest = velvet.state.Guest(name="TestGuest")
-    "MONITOR"
-    pause 1.5
-    $ assert renpy.get_screen("management") is not None, "MONITOR no abrió gestión"
+    pause 1.0
+    # Avanza línea por línea hasta que aparece la recepción, luego abre el Monitor.
+    click until "MONITOR"
+    pause 1.0
+    $ assert renpy.get_screen("management") is not None, "MONITOR no abrió gestión tras la intro"
+    # Amber sembrada por la intro + tutorial activo en el primer paso.
+    $ assert gs.floors[0].rooms[0].guest is not None, "Amber no fue sembrada en la habitación 1"
+    $ assert gs.floors[0].rooms[0].guest.name == velvet.guests.AMBER_NAME, "la habitación 1 no tiene a Amber"
+    $ assert gs.tutorial_done is False, "el tutorial no debería estar completo al arrancar"
+    $ assert velvet.tutorial.current_text(gs) == velvet.tutorial.STEPS[0][0], "objetivo inicial incorrecto"
     "Volver"
-    pause 1.5
+    pause 1.0
+    $ assert renpy.get_screen("reception") is not None, "Volver del Monitor no regresó a recepción"
     "PASILLO"
-    pause 1.5
+    pause 1.0
     $ assert renpy.get_screen("hallway") is not None, "PASILLO no abrió el pasillo"
-    "TestGuest"
-    pause 1.5
-    $ assert renpy.get_screen("room") is not None, "la puerta no abrió la habitación"
+    "Amber"
+    pause 1.0
+    $ assert renpy.get_screen("room") is not None, "la puerta de Amber no abrió la habitación"
+    # Visita REAL: dispara el say por tier de Amber (valida interpolación [line] en runtime).
     "Visitar"
-    pause 1.5
-    # FIX C1 (lo crítico): tras "Visitar" la habitación SIGUE abierta.
-    $ assert renpy.get_screen("room") is not None, "FIX C1: Visitar cerró la habitación"
+    pause 0.5
+    click
+    pause 1.0
+    $ assert renpy.get_screen("room") is not None, "tras la visita la habitación no volvió a abrir"
+    $ assert gs.floors[0].rooms[0].guest.affection > 0, "la visita no subió el afecto"
+    $ velvet.tutorial.advance(gs)
+    $ assert gs.tutorial_step == 1, "el tutorial no avanzó tras la visita"
     "Volver"
-    pause 1.5
+    pause 1.0
     $ assert renpy.get_screen("hallway") is not None, "Volver (habitación) no regresó al pasillo"
-    # Fix del bug Return(None)->True: el Volver del pasillo debe ir a RECEPCIÓN, no rebotar a una habitación.
     "Volver"
-    pause 1.5
-    $ assert renpy.get_screen("reception") is not None, "BUG: Volver del pasillo no regresó a recepción (room=%r)" % (renpy.get_screen("room") is not None,)
+    pause 1.0
+    $ assert renpy.get_screen("reception") is not None, "Volver del pasillo no regresó a recepción"
     run Quit(confirm=False)
