@@ -25,6 +25,8 @@ screen topbar():
             spacing 40
             add DynamicDisplayable(_money_disp)
             add DynamicDisplayable(_income_disp) yalign 1.0
+    # Objetivo del tutorial (Null cuando ya está completo -> se oculta solo).
+    add DynamicDisplayable(_objectives_disp) xpos 40 ypos 96
 
 
 screen reception():

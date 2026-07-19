@@ -10,6 +10,8 @@ init python:
     import velvet.hotel
     import velvet.idle
     import velvet.session
+    import velvet.tutorial
+    import velvet.guests
     import velvet.display as vdisplay
 
     def game_tick():
@@ -17,6 +19,8 @@ init python:
         # Acredita 1s de ingreso y estampa last_seen (evita doble conteo al recargar).
         velvet.session.apply_tick(store.gs, 1.0)
         store.gs.last_seen = time.time()
+        if velvet.tutorial.advance(store.gs):
+            renpy.notify("Tutorial completado. El hotel ya corre solo.")
 
     def catch_up_now():
         # Acredita el hueco offline (tope 8h) al iniciar/continuar.
@@ -59,6 +63,12 @@ init python:
 
     def _income_disp(st, at):
         return Text(vdisplay.room_income_label(total_income()), size=30, color="#c9b8e0"), 0.5
+
+    def _objectives_disp(st, at):
+        txt = velvet.tutorial.current_text(store.gs)
+        if not txt:
+            return Null(), 0.5
+        return Text("Objetivo: " + txt, size=28, color="#ffe08a"), 0.5
 
 # Estado del juego (persistido por el save nativo de Ren'Py; dataclasses picklables).
 default gs = velvet.state.new_game()
