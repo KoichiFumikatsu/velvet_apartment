@@ -7,9 +7,20 @@ label hallway_flow:
         $ sel = renpy.call_screen("hallway")
         if not isinstance(sel, int) or isinstance(sel, bool):
             return
-        $ res = renpy.call_screen("room", room=gs.floors[current_floor].rooms[sel])
+        call room_flow(gs.floors[current_floor].rooms[sel])
+
+
+label room_flow(room):
+    while True:
+        $ res = renpy.call_screen("room", room=room)
         if res == "clicker":
             $ renpy.call_screen("clicker")
+        elif res == "visit":
+            $ line = velvet.guests.amber_visit_line(room.guest.affection)
+            amber "[line]"
+            $ do_visit(room.guest)
+        else:
+            return
 
 
 screen hallway():
@@ -67,7 +78,10 @@ screen room(room):
             bar value StaticValue(guest.affection, 100) xsize 520 ysize 28
             text "Contenido: %s" % vdisplay.tier_display(guest) size 28 color "#e0a0c0"
             null height 20
-            textbutton "Visitar (+afecto)" action Function(do_visit, guest) text_size 30
+            if guest.name == velvet.guests.AMBER_NAME:
+                textbutton "Visitar (+afecto)" action Return("visit") text_size 30
+            else:
+                textbutton "Visitar (+afecto)" action Function(do_visit, guest) text_size 30
             textbutton "Servicio (%s, +afecto)" % vdisplay.cost_label(scost):
                 action Function(act, velvet.actions.buy_service, gs, guest)
                 sensitive gs.money >= scost
