@@ -35,6 +35,8 @@ class GameState:
     facade_level: int = 0
     last_seen: float = 0.0
     floors: list[Floor] = field(default_factory=list)
+    tutorial_step: int = 0
+    tutorial_done: bool = False
 
 
 def new_game() -> GameState:
