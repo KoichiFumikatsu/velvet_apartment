@@ -28,6 +28,16 @@ contenido. Progresión vertical por pisos. Arte por **IA Gen propio** (placehold
 - **Tutorial de objetivos** (`velvet/tutorial.py`, puro): panel en la topbar que detecta pasos (visitar Amber → mejorar su habitación) y avanza en el `game_tick`; aviso `notify` al completar. `gs.tutorial_step`/`tutorial_done` persisten en el save.
 - **Verificación**: pytest 50/50; runtime `test flow` extendido (avanza la intro completa con `click until "MONITOR"`, valida siembra de Amber + tutorial activo + **visita real** que ejerce la interpolación `[line]` + navegación de retorno). Control negativo confirmó que el harness ejecuta los asserts.
 
+**Assets / arte (fondos SFW)**:
+- Brief completo en `docs/ASSETS.md` (9 fondos + 1 prop: nombre de archivo, tamaño px, qué `Solid` reemplaza, prompt con ancla de estilo VN anime velvet nocturno).
+- **Codex NO puede generar imágenes** (probado: modelo `gpt-5-codex` da 400 con cuenta ChatGPT; sin API key ni MCP de imagen). El generador es **IA Gen (RunPod)**.
+- Apartado `velvet - *` (10 prompts danbooru, `no_humans, scenery`, ≤52 tok) **cargado y sincronizado en la biblioteca VIVA de koilinux** (`/home/koilinux/projects/iagen-online/app/library.json`, 55 prompts, servicio `iagen` reiniciado). Merge aditivo con backup.
+
+**Pendiente de assets**:
+1. Generar los fondos en IA Gen (apartado `velvet - *`) → dropear los PNG en `game/images/` con los nombres de `docs/ASSETS.md`.
+2. Integración Ren'Py (la hace Claude): `game/images.rpy` con las declaraciones + `Solid`→imagen + hover dorado programático en hotspots; verificar `renpy lint` + `renpy test flow`. Sin tocar lógica.
+3. CG de personaje (Amber y resto) siguen por IA Gen aparte (NSFW), en el incremento Contenido.
+
 ## Cómo correr / verificar
 
 - **Jugar**: `& "C:\Users\fumik\renpy-8.3.7-sdk\renpy.exe" "C:\Users\fumik\projects\velvet_apartment"` → menú → **Nueva** (el capital inicial solo aplica a partida nueva).
